@@ -1,0 +1,44 @@
+name: 'Build GUI'
+
+on:
+  workflow_dispatch:
+  push:
+
+jobs:
+
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          architecture: 'x64'
+          cache: 'pip'
+          cache-dependency-path: |
+            **/requirements*.txt
+
+      - name: Install Dependencies
+        run: |
+          pip install -r .\GUI\requirements.txt
+
+      - name: Convert GUI
+        run: |
+          pyside2-uic .\GUI\gui.ui > .\GUI\main_gui.py
+
+      - uses: Nuitka/Nuitka-Action@main
+        with:
+          nuitka-version: main
+          script-name: gui/main.py
+          onefile: true
+          enable-plugins: pyside2
+          disable-console: true
+          standalone: true
+          mingw64: true
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: exe
+          path: build/main.exe
