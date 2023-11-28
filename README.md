@@ -15,7 +15,7 @@
 4. 修改platformio.ini中的upload_port
 5. 点击下载按钮，等待编译和下载
 
-键盘映射请参考[segatools.ini](https://github.com/Becods/ChunithmControllerReversion/tree/main/extra)  
+键盘映射请参考[segatools.ini](https://github.com/Becods/ChunithmController/blob/main/segatools.ini)  
 
 ## 编译完成的固件以及上位机下载 
 https://github.com/Becods/ChunithmController/releases/latest
